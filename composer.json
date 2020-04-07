@@ -1,0 +1,26 @@
+{
+    "name": "loganpc/file-extend",
+    "description": "logan file upload sdk",
+    "keywords": ["php7", "oss"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "pengcheng123",
+            "email": "185560317@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=7.1.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "aliyuncs/aliyun-oss-php-sdk-laravel": "~1.2.0",
+        "alibabacloud/sdk": "^1.7.69",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Loganpc\\FileUpload\\": "lib"
+        }
+    }
+}
