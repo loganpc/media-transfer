@@ -4,6 +4,8 @@ namespace Loganpc\FileUpload\Gateways;
 
 use Loganpc\FileUpload\Support\Config;
 use Green\Request\V20180509 as Green;
+require_once  dirname(__DIR__) . DIRECTORY_SEPARATOR . 'vender' . DIRECTORY_SEPARATOR .
+    'voduploadsdk' . DIRECTORY_SEPARATOR . 'aliyun-php-sdk-core' . DIRECTORY_SEPARATOR . 'Config.php';
 
 class TextGateway
 {
