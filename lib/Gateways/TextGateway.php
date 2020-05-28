@@ -51,7 +51,7 @@ class TextGateway
             $this->user_config->get('accesskeyid'),
             $this->user_config->get('accesskeysecret')
         );
-        DefaultProfile::addEndpoint(
+        \DefaultProfile::addEndpoint(
             $this->user_config->get('regionid'),
             $this->user_config->get('regionid'),
             "Green",
