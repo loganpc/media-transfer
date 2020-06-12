@@ -66,17 +66,7 @@ class FileGateway
         return $trans->sendRequest($url, $sendRequest, 'POST');
     }
 
-    /**
-     * backend file upload
-     *
-     * @author Logan
-     *
-     * @param array $param['file', 'path']
-     *
-     * @return boolean/string
-     */
-    public function backendFileUpload(array $param = [])
-    {
+    public function getSTSToken(){
         if (is_null($this->user_config->get('app_id'))) {
             throw new InvalidArgumentException('Missing Config -- [app_id]');
         }
@@ -93,17 +83,33 @@ class FileGateway
         $trans = new Transfer();
         $stsResult = $trans->sendRequest($url, $sendRequest, 'POST');
 
-        $accessKeyId     = $stsResult['data']['sts_info']['access_key_id'];
-        $accessKeySecret = $stsResult['data']['sts_info']['access_key_secret'];
-        $endpoint        = $stsResult['data']['sts_info']['endpoint'];
-        $securityToken   = $stsResult['data']['sts_info']['security_token'];
+        return $stsResult['data']['sts_info'];
+    }
+
+    /**
+     * backend file upload
+     *
+     * @author Logan
+     *
+     * @param array $param['file', 'path']
+     *
+     * @return boolean/string
+     */
+    public function backendFileUpload(array $param = [])
+    {
+        $stsInfo = $this->getSTSToken();
+
+        $accessKeyId     = $stsInfo['access_key_id'];
+        $accessKeySecret = $stsInfo['access_key_secret'];
+        $endpoint        = $stsInfo['endpoint'];
+        $securityToken   = $stsInfo['security_token'];
 
         //解析文件
         $fileContent = $param['file'];
         $fileNames = explode('.', $fileContent['name']);
         $end       = array_pop($fileNames);
 
-        $bucket   = $stsResult['data']['sts_info']['bucket'];
+        $bucket   = $stsInfo['bucket'];
         $object   = '12000'.$param['path'].md5(time().'_'.$fileContent['name']).'.'.$end;
         $filePath = $fileContent['tmp_name'];
 
