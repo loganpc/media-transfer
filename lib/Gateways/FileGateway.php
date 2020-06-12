@@ -110,7 +110,7 @@ class FileGateway
         $end       = array_pop($fileNames);
 
         $bucket   = $stsInfo['bucket'];
-        $object   = '12000'.$param['path'].md5(time().'_'.$fileContent['name']).'.'.$end;
+        $object   = $this->user_config->get('app_id').$param['path'].md5(time().'_'.$fileContent['name']).'.'.$end;
         $filePath = $fileContent['tmp_name'];
 
         $ossClient = new OssClient($accessKeyId, $accessKeySecret, $endpoint, false, $securityToken);
